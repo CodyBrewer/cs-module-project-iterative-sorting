@@ -7,19 +7,28 @@ def selection_sort(arr):
         # TO-DO: find next smallest element
         # (hint, can do in 3 loc)
         # Your code here
-
-
-        # TO-DO: swap
-        # Your code here
-
+        for j in range(cur_index + 1, len(arr)):
+            if arr[j] < arr[smallest_index]:
+                # TO-DO: swap
+                # Your code here
+                smallest_index = j
+        arr[smallest_index], arr[cur_index] = arr[cur_index], arr[smallest_index]
     return arr
 
 
 # TO-DO:  implement the Bubble Sort function below
 def bubble_sort(arr):
     # Your code here
-
-
+    sorted = False
+    while not sorted:
+        sorted = True
+        # loop through the array
+        for item in range(0, len(arr) - 1):
+            # compare each element to its neighbor
+            # if elements in wrong position (relative to each other, swap them)
+            if arr[item] > arr[item + 1]:
+                sorted = False
+                arr[item], arr[item + 1] = arr[item + 1], arr[item]
     return arr
 
 '''
@@ -41,6 +50,42 @@ What is the time and space complexity of the counting sort algorithm?
 '''
 def counting_sort(arr, maximum=None):
     # Your code here
-
-
+    # initialize the max_value and set to None
+    max_value = None
+    
+    # check if the maximum value is passed in and is not None
+    if maximum is not None:
+        # if it is passed in set the max value to the maximum + 1
+        max_value = maximum + 1
+    # if maximum is None check if their are items in the array
+    elif 0 < len(arr):
+        # if there are set the max_value to the max of the passed in array + 1
+        max_value = max(arr) + 1
+    
+    # if the max value is passsed and and the value is greater than 0
+    if (max_value is not None) and (0 < max_value):
+        # create the counting list buckets by creating array buckets of 0 times the max_value
+        counting_list = [0] * max_value
+        # loop through each item in the array
+        for item in arr:
+            # if 0 is less than or equal to the itme
+            if 0 <= item:
+                # increase the bucket of the counting list by 1
+                counting_list[item] += 1
+            # otherwise a negative number was passed in and we should send the error
+            else:
+                return "Error, negative numbers not allowed in Count Sort"
+        # initialize pointer index
+        pointer_index = 0
+        # for each item in the ranger of the length of the number of buckets in the counting_list
+        for i in range(len(counting_list)):
+            # loop while the index of the counting list of i is greater than 0
+            while 0 < counting_list[i]:
+                # set the value of the arr at the pointer to i
+                arr[pointer_index] = i
+                # decrease the value of the counting_list bucket we are at by 1
+                counting_list[i] -= 1
+                # increase the pointer_index by 1
+                pointer_index += 1
+    # return the passed in arr
     return arr
